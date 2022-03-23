@@ -1,0 +1,40 @@
+<h3>Multiple selection</h3>
+<p>
+  <mat-form-field>
+    <mat-select
+      [formControl]="bankMultiCtrl"
+      [placeholder]="placeholder"
+      [multiple]="true"
+      #multiSelect
+    >
+      <mat-select-trigger>
+        <span
+          *ngIf="
+            bankMultiCtrl.value.length > 0 &&
+              bankMultiCtrl.value?.length != banks.length;
+            "
+          class="example-additional-selection"
+          >Selected ({{ bankMultiCtrl.value.length }})</span
+        >
+        <span
+          *ngIf="bankMultiCtrl.value?.length == banks.length;"
+          class="example-additional-selection"
+        >
+          All selected({{ bankMultiCtrl.value.length }})
+        </span>
+      </mat-select-trigger>
+      <ngx-mat-select-search
+        [formControl]="bankMultiFilterCtrl"
+      ></ngx-mat-select-search>
+
+      <mat-option
+        *ngFor="let bank of filteredBanksMulti | async"
+        [value]="bank"
+        (click)="checkall(bank)"
+      >
+        {{ bank.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+<p></p>
